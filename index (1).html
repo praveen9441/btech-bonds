@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTECH BONDS — Chats to Campus</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+background:black;
+color:white;
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* Background cinematic animation */
+body::before{
+content:"";
+position:fixed;
+width:200%;
+height:200%;
+background:radial-gradient(circle at center,#222,#000);
+animation:zoom 8s infinite alternate;
+z-index:-1;
+}
+
+@keyframes zoom{
+0%{transform:scale(1);}
+100%{transform:scale(1.15);}
+}
+
+.screen{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+opacity:0;
+transition:0.8s ease;
+padding:20px;
+}
+
+.active{
+opacity:1;
+}
+
+button{
+padding:12px 28px;
+margin:12px;
+border:none;
+border-radius:30px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+.yes{
+background:white;
+color:black;
+}
+
+.no{
+background:#444;
+color:white;
+position:fixed;
+}
+
+img{
+width:260px;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,0.7);
+margin-bottom:20px;
+transition:0.5s;
+display:none;
+}
+
+.quote{
+margin-top:20px;
+font-style:italic;
+opacity:0;
+transition:1s;
+}
+
+.poster{
+font-size:28px;
+margin-top:20px;
+letter-spacing:3px;
+opacity:0;
+transition:1.5s;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" autoplay loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+</audio>
+
+<div class="screen active" id="screen1">
+<h2>🎬 Let’s See Our First Glimpse</h2>
+<p>Do you want to see our journey?</p>
+
+<button class="yes" onclick="nextScreen()">YES</button>
+<button class="no" id="noBtn" style="top:60%; left:50%;">NO</button>
+</div>
+
+<div class="screen" id="screen2">
+
+<h2>BTECH BONDS</h2>
+<p style="margin-bottom:15px;">From Chats to Campus</p>
+
+<button onclick="showGlimpse()">🎥 Show Glimpse</button>
+
+<img id="glimpseImg" src="https://i.ibb.co/fwhKmrc/1771088412988.png">
+
+<p id="release" style="margin-top:15px; display:none;">
+📅 Release Date: Coming Soon
+</p>
+
+<div class="quote" id="quoteText">
+"Journey may end, but the memories and lessons will always stay with us."
+</div>
+
+<div class="poster" id="posterText">
+✨ COMING SOON ✨
+</div>
+
+</div>
+
+<script>
+
+function nextScreen(){
+document.getElementById("screen1").classList.remove("active");
+document.getElementById("screen2").classList.add("active");
+}
+
+const noBtn = document.getElementById("noBtn");
+
+function moveButton(){
+const x = Math.random() * (window.innerWidth - 100);
+const y = Math.random() * (window.innerHeight - 50);
+noBtn.style.left = x + "px";
+noBtn.style.top = y + "px";
+}
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("touchstart", moveButton);
+noBtn.addEventListener("click", moveButton);
+
+function showGlimpse(){
+document.getElementById("glimpseImg").style.display="block";
+document.getElementById("release").style.display="block";
+
+setTimeout(()=>{
+document.getElementById("quoteText").style.opacity="1";
+},800);
+
+setTimeout(()=>{
+document.getElementById("posterText").style.opacity="1";
+},1500);
+}
+
+document.body.addEventListener("click", function(){
+document.getElementById("bgMusic").play();
+}, {once:true});
+
+</script>
+
+</body>
+</html>
